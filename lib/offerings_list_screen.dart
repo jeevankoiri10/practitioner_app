@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:practitioner_app/display_offerings.dart';
 import 'package:practitioner_app/offerings_provider.dart';
 import 'package:provider/provider.dart';
 import 'add_edit_offering_screen.dart';
@@ -82,7 +83,7 @@ class OfferingsListScreen extends StatelessWidget {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) =>
-                          AddEditOfferingScreen(offering: offering),
+                          DisplayOfferingScreen(offering: offering),
                     ),
                   );
                 },
