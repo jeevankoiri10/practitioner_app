@@ -1,5 +1,5 @@
 class Offering {
-  String id; // Unique identifier
+  String id;
   String practitionerName;
   String title;
   String description;

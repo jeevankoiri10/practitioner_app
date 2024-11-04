@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:practitioner_app/offerings_model.dart';
+import 'package:practitioner_app/offerings_provider.dart';
 import 'package:provider/provider.dart';
-import 'offerings_provider.dart';
 
 class AddEditOfferingScreen extends StatefulWidget {
   final Offering? offering;
@@ -13,138 +15,162 @@ class AddEditOfferingScreen extends StatefulWidget {
 }
 
 class _AddEditOfferingScreenState extends State<AddEditOfferingScreen> {
-  final _formKey = GlobalKey<FormState>();
-  late String practitionerName, title, description, category, duration, type;
-  late double price;
-
-  @override
-  void initState() {
-    super.initState();
-    if (widget.offering != null) {
-      practitionerName = widget.offering!.practitionerName;
-      title = widget.offering!.title;
-      description = widget.offering!.description;
-      category = widget.offering!.category;
-      duration = widget.offering!.duration;
-      type = widget.offering!.type;
-      price = widget.offering!.price;
-    } else {
-      practitionerName = '';
-      title = '';
-      description = '';
-      category = 'Spiritual';
-      duration = '30 min';
-      type = 'In-Person';
-      price = 0.0;
-    }
-  }
-
-  void _saveForm() {
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-      final newOffering = Offering(
-        id: widget.offering?.id ?? UniqueKey().toString(),
-        practitionerName: practitionerName,
-        title: title,
-        description: description,
-        category: category,
-        duration: duration,
-        type: type,
-        price: price,
-      );
-
-      final provider = Provider.of<OfferingsProvider>(context, listen: false);
-      if (widget.offering != null) {
-        provider.updateOffering(widget.offering!.id, newOffering);
-      } else {
-        provider.addOffering(newOffering);
-      }
-      Navigator.of(context).pop();
-    }
-  }
+  final _formKey = GlobalKey<FormBuilderState>();
 
   @override
   Widget build(BuildContext context) {
+    final isEditing = widget.offering != null;
+    final offeringsProvider =
+        Provider.of<OfferingsProvider>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.offering != null ? 'Edit Offering' : 'Add Offering'),
+        title: Text(isEditing ? 'Edit Offering' : 'Add Offering'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Form(
+        child: FormBuilder(
           key: _formKey,
           child: ListView(
             children: [
-              TextFormField(
-                initialValue: practitionerName,
+              FormBuilderTextField(
+                name: 'practitionerName',
+                initialValue: widget.offering?.practitionerName,
                 decoration: InputDecoration(labelText: 'Practitioner Name'),
-                onSaved: (value) => practitionerName = value!,
+                validator: FormBuilderValidators.compose([
+                  FormBuilderValidators.required(),
+                  FormBuilderValidators.minLength(3),
+                  FormBuilderValidators.maxLength(50),
+                ]),
               ),
-              TextFormField(
-                initialValue: title,
+              FormBuilderTextField(
+                name: 'title',
+                initialValue: widget.offering?.title,
                 decoration: InputDecoration(labelText: 'Title'),
-                onSaved: (value) => title = value!,
+                validator: FormBuilderValidators.compose([
+                  FormBuilderValidators.required(),
+                  FormBuilderValidators.minLength(3),
+                  FormBuilderValidators.maxLength(100),
+                ]),
               ),
-              TextFormField(
-                initialValue: description,
+              FormBuilderTextField(
+                name: 'description',
+                initialValue: widget.offering?.description,
                 decoration: InputDecoration(labelText: 'Description'),
-                onSaved: (value) => description = value!,
+                maxLines: 3,
+                validator: FormBuilderValidators.compose([
+                  FormBuilderValidators.required(),
+                  FormBuilderValidators.minLength(10),
+                  FormBuilderValidators.maxLength(500),
+                ]),
               ),
-              DropdownButtonFormField<String>(
-                value: category,
+              FormBuilderDropdown<String>(
+                name: 'category',
+                initialValue: widget.offering?.category,
                 decoration: InputDecoration(labelText: 'Category'),
-                items:
-                    ['Spiritual', 'Mental', 'Emotional'].map((String category) {
-                  return DropdownMenuItem<String>(
-                    value: category,
-                    child: Text(category),
-                  );
-                }).toList(),
-                onChanged: (value) {
-                  setState(() {
-                    category = value!;
-                  });
-                },
-              ),
-              TextFormField(
-                initialValue: duration,
-                decoration: InputDecoration(labelText: 'Duration'),
-                onSaved: (value) => duration = value!,
+                items: ['Spiritual', 'Mental', 'Emotional', 'Physical']
+                    .map((category) => DropdownMenuItem(
+                          value: category,
+                          child: Text(category),
+                        ))
+                    .toList(),
+                validator: FormBuilderValidators.required(),
               ),
               Row(
                 children: [
-                  Text('In-Person'),
-                  Radio(
-                    value: 'In-Person',
-                    groupValue: type,
-                    onChanged: (value) {
-                      setState(() {
-                        type = value!;
-                      });
-                    },
+                  Expanded(
+                    child: FormBuilderTextField(
+                      name: 'durationHours',
+                      initialValue: widget.offering?.duration != null
+                          ? widget.offering!.duration.split(' ').first
+                          : '',
+                      decoration: InputDecoration(labelText: 'Hours'),
+                      keyboardType: TextInputType.number,
+                      validator: FormBuilderValidators.compose([
+                        FormBuilderValidators.numeric(),
+                        FormBuilderValidators.min(0),
+                      ]),
+                    ),
                   ),
-                  Text('Online'),
-                  Radio(
-                    value: 'Online',
-                    groupValue: type,
-                    onChanged: (value) {
-                      setState(() {
-                        type = value!;
-                      });
-                    },
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: FormBuilderTextField(
+                      name: 'durationMinutes',
+                      initialValue: widget.offering?.duration != null
+                          ? widget.offering!.duration
+                              .split(' ')
+                              .firstWhere((element) => element.endsWith('min'))
+                              .replaceAll('min', '')
+                              .trim()
+                          : '',
+                      decoration: InputDecoration(labelText: 'Minutes'),
+                      keyboardType: TextInputType.number,
+                      validator: FormBuilderValidators.compose([
+                        FormBuilderValidators.numeric(),
+                        FormBuilderValidators.min(0),
+                        FormBuilderValidators.max(59),
+                      ]),
+                    ),
                   ),
                 ],
               ),
-              TextFormField(
-                initialValue: price.toString(),
+              FormBuilderRadioGroup<String>(
+                name: 'type',
+                initialValue: widget.offering?.type,
+                decoration: InputDecoration(labelText: 'Type'),
+                options: [
+                  FormBuilderFieldOption(
+                      value: 'In-Person', child: Text('In-Person')),
+                  FormBuilderFieldOption(
+                      value: 'Online', child: Text('Online')),
+                ],
+                validator: FormBuilderValidators.required(),
+              ),
+              FormBuilderTextField(
+                name: 'price',
+                initialValue: widget.offering?.price.toString(),
                 decoration: InputDecoration(labelText: 'Price (€)'),
                 keyboardType: TextInputType.number,
-                onSaved: (value) => price = double.parse(value!),
+                validator: FormBuilderValidators.compose([
+                  FormBuilderValidators.required(),
+                  FormBuilderValidators.numeric(),
+                  FormBuilderValidators.min(0),
+                ]),
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: _saveForm,
-                child: Text('Save'),
+                onPressed: () {
+                  if (_formKey.currentState?.saveAndValidate() ?? false) {
+                    final values = _formKey.currentState!.value;
+                    final durationHours =
+                        int.tryParse(values['durationHours'] ?? '0') ?? 0;
+                    final durationMinutes =
+                        int.tryParse(values['durationMinutes'] ?? '0') ?? 0;
+                    final totalDuration = Duration(
+                        hours: durationHours, minutes: durationMinutes);
+
+                    final offering = Offering(
+                      id: widget.offering?.id ?? UniqueKey().toString(),
+                      practitionerName: values['practitionerName'],
+                      title: values['title'],
+                      description: values['description'],
+                      category: values['category'],
+                      duration:
+                          '${totalDuration.inMinutes} min', // Store as string
+                      type: values['type'],
+                      price: double.parse(values['price']),
+                    );
+                    if (isEditing) {
+                      offeringsProvider.updateOffering(offering.id, offering);
+                    } else {
+                      offeringsProvider.addOffering(offering);
+                    }
+                    Navigator.of(context).pop();
+                  } else {
+                    print("Validation failed");
+                  }
+                },
+                child: Text(isEditing ? 'Save Changes' : 'Add Offering'),
               ),
             ],
           ),

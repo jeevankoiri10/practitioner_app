@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:practitioner_app/offering_list_screen.dart';
 import 'package:provider/provider.dart';
 import 'offerings_provider.dart';
+import 'offerings_list_screen.dart';
+import 'theme_provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,14 +11,19 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => OfferingsProvider(),
-      child: MaterialApp(
-        title: 'Holistic Practitioner Services',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: OfferingsListScreen(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => OfferingsProvider()),
+        ChangeNotifierProvider(create: (context) => ThemeProvider()),
+      ],
+      child: Consumer<ThemeProvider>(
+        builder: (context, themeProvider, child) {
+          return MaterialApp(
+            title: 'Holistic Practitioner Services',
+            theme: themeProvider.themeData,
+            home: OfferingsListScreen(),
+          );
+        },
       ),
     );
   }
