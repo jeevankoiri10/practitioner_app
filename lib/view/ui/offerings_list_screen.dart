@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:practitioner_app/display_offerings.dart';
+import 'package:practitioner_app/view/ui/display_offerings.dart';
 import 'package:practitioner_app/offerings_provider.dart';
+import 'package:practitioner_app/view/widgets/myne_app_bar.dart';
 import 'package:provider/provider.dart';
-import 'add_edit_offering_screen.dart';
+import 'edit_offering_screen.dart';
 import 'settings_screen.dart';
 
 class OfferingsListScreen extends StatelessWidget {
@@ -11,28 +12,7 @@ class OfferingsListScreen extends StatelessWidget {
     final offeringsProvider = Provider.of<OfferingsProvider>(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Offerings',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: Theme.of(context).primaryColor,
-        elevation: 4,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.settings),
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => SettingsScreen()),
-              );
-            },
-          ),
-        ],
-      ),
+      appBar: MYNEappBar(title: 'Offerings'),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListView.builder(

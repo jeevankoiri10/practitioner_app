@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:practitioner_app/offerings_model.dart';
+import 'package:practitioner_app/model/offerings_model.dart';
 import 'package:practitioner_app/offerings_provider.dart';
 import 'package:provider/provider.dart';
 

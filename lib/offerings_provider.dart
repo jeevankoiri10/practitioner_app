@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:practitioner_app/offerings_model.dart';
+import 'package:practitioner_app/model/offerings_model.dart';
 
 class OfferingsProvider with ChangeNotifier {
   List<Offering> _offerings = [];

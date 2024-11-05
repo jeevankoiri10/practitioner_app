@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:practitioner_app/view/ui/edit_offering_screen.dart';
 import 'package:provider/provider.dart';
 import 'offerings_provider.dart';
-import 'offerings_list_screen.dart';
-import 'theme_provider.dart';
+import 'view/ui/offerings_list_screen.dart';
+import 'view/theme/theme_provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -20,8 +21,12 @@ class MyApp extends StatelessWidget {
         builder: (context, themeProvider, child) {
           return MaterialApp(
             title: 'Holistic Practitioner Services: MyNewEarth',
-            theme: themeProvider.themeData,
-            home: OfferingsListScreen(),
+            // theme: themeProvider.themeData,
+            initialRoute: '/',
+            routes: {
+              '/': (context) => OfferingsListScreen(),
+              '/add': (context) => AddEditOfferingScreen(),
+            },
           );
         },
       ),

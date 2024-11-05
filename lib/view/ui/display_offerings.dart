@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:practitioner_app/offerings_model.dart';
-import 'add_edit_offering_screen.dart'; // Import the edit screen
+import 'package:practitioner_app/model/offerings_model.dart';
+import 'edit_offering_screen.dart'; // Import the edit screen
 
 class DisplayOfferingScreen extends StatelessWidget {
   final Offering offering;
