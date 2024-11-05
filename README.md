@@ -1,16 +1,21 @@
 # practitioner_app
 
-A new Flutter project.
+This project's goal is to create a basic holistic wellness application for its practitioners who can offers holistic services to its people.
 
-## Getting Started
+- Offerings List Screen
+- Add/edit offering screen
 
-This project is a starting point for a Flutter application.
+Each practitioners can add offerings and will be shown to its user. Each offering should have:
+Practitioner Name (TextField)
+Title (TextField)
+Description (TextArea)
+Category (Dropdown with options like spiritual, mental, emotional)
+Duration (Textfield) or selectable options like 30 min or 1 hours
+Type (Radio buttons or toggle for in Person and Online)
+Price (Numeric INput)
 
-A few resources to get you started if this is your first Flutter project:
+## Architecture Used
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Third-party packages used
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+-

@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       child: Consumer<ThemeProvider>(
         builder: (context, themeProvider, child) {
           return MaterialApp(
-            title: 'Holistic Practitioner Services',
+            title: 'Holistic Practitioner Services: MyNewEarth',
             theme: themeProvider.themeData,
             home: OfferingsListScreen(),
           );
