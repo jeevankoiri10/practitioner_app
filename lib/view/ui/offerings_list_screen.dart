@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:practitioner_app/view/ui/display_offerings.dart';
-import 'package:practitioner_app/controller/offerings_provider.dart';
+import 'package:practitioner_app/view_model/offerings_provider.dart';
 import 'package:practitioner_app/view/widgets/myne_app_bar.dart';
 import 'package:provider/provider.dart';
 import 'edit_offering_screen.dart';
@@ -12,7 +12,7 @@ class OfferingsListScreen extends StatelessWidget {
     final offeringsProvider = Provider.of<OfferingsProvider>(context);
 
     return Scaffold(
-      appBar: MYNEappBar(title: 'Offerings'),
+      appBar: MYNEappBar(title: 'Offerings'), // TODO add settings in the appbar
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListView.builder(
@@ -73,6 +73,7 @@ class OfferingsListScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        // TODO add the white foreground on the floating action button
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(

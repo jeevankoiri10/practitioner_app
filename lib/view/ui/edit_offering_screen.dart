@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:practitioner_app/model/offerings_model.dart';
-import 'package:practitioner_app/controller/offerings_provider.dart';
+import 'package:practitioner_app/view_model/offerings_provider.dart';
 import 'package:provider/provider.dart';
 
+// TODO correct the time duration of the hours and minutes in the edit page for the already made offering.
 class AddEditOfferingScreen extends StatefulWidget {
   final Offering? offering;
 

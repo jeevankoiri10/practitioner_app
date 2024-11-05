@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:practitioner_app/view/ui/edit_offering_screen.dart';
 import 'package:provider/provider.dart';
-import 'controller/offerings_provider.dart';
+import 'view_model/offerings_provider.dart';
 import 'view/ui/offerings_list_screen.dart';
 import 'view/theme/theme_provider.dart';
 
