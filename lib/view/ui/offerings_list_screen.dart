@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:practitioner_app/view/ui/display_offerings.dart';
-import 'package:practitioner_app/offerings_provider.dart';
+import 'package:practitioner_app/controller/offerings_provider.dart';
 import 'package:practitioner_app/view/widgets/myne_app_bar.dart';
 import 'package:provider/provider.dart';
 import 'edit_offering_screen.dart';
