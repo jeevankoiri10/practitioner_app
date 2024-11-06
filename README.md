@@ -70,11 +70,31 @@ in my opinion **provider with MVVM** is the architecture that we have to use for
 - `flutter_form_builder:` - for building forms in the edit offering screen
 - `form_builder_validators:` - used for validating the forms used in the add/edit offering screen.
 ## Screenshots:
-Add offering screen
-![1 add offering ](https://github.com/user-attachments/assets/6b673cb1-0343-48d7-acfb-793b06381b9f)![2 display offering list ](https://github.com/user-attachments/assets/24f900c7-10f7-4dcd-99ca-56ea06863d29)![3 edit offering](https://github.com/user-attachments/assets/f554b10e-5ea9-47c9-91f5-c8aac321c378)
 
+### Add Offering Screen
+![1. Add Offering](https://github.com/user-attachments/assets/6b673cb1-0343-48d7-acfb-793b06381b9f)
 
-![4 edit offering](https://github.com/user-attachments/assets/344d5261-c03c-4b59-aeff-9a9445f46bc0)![5 offering edited](https://github.com/user-attachments/assets/96dd9861-b8a2-48ee-aabd-1785df364b87)![6 Delete offering ](https://github.com/user-attachments/assets/72872334-ad20-4fd0-9104-f43982e4e6ad)![7 Theme selection](https://github.com/user-attachments/assets/47652f86-fdd4-4064-838f-c350288d5fe0)
+### Display Offering List
+![2. Display Offering List](https://github.com/user-attachments/assets/24f900c7-10f7-4dcd-99ca-56ea06863d29)
+
+### Edit Offering Screen
+![3. Edit Offering](https://github.com/user-attachments/assets/f554b10e-5ea9-47c9-91f5-c8aac321c378)
+
+### Edit Offering Details
+![4. Edit Offering Details](https://github.com/user-attachments/assets/344d5261-c03c-4b59-aeff-9a9445f46bc0)
+
+### Offering Edited
+![5. Offering Edited](https://github.com/user-attachments/assets/96dd9861-b8a2-48ee-aabd-1785df364b87)
+
+### Delete Offering
+![6. Delete Offering](https://github.com/user-attachments/assets/72872334-ad20-4fd0-9104-f43982e4e6ad)
+
+### Theme Selection
+![7. Theme Selection](https://github.com/user-attachments/assets/47652f86-fdd4-4064-838f-c350288d5fe0)
+
+### Directory Structure
+![Directory Structure](https://github.com/user-attachments/assets/1136221b-5e51-45f7-8f3d-8ef7b435b677)
+
 
 
 ## References:
