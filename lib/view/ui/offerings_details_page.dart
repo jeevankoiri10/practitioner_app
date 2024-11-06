@@ -25,6 +25,9 @@ class _OfferingDetailsPageState extends State<OfferingDetailsPage> {
 
   // Function to format duration from minutes to hours and minutes
   String formatDuration(Duration duration) {
+    if (duration == Duration(minutes: 0, seconds: 0)) {
+      return "0 min".toString();
+    }
     final totalMinutes = duration.inMinutes;
     final hours = totalMinutes ~/ 60; // Integer division
     final minutes = totalMinutes % 60;

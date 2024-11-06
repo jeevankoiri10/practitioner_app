@@ -37,7 +37,7 @@ class OfferingDetailsCard extends StatelessWidget {
                 fontWeight: FontWeight.bold),
             _buildText('Description: $description'),
             _buildText('Category: ${category.toString().split('.').last}'),
-            _buildText('Duration: ${formatDuration(duration)}'),
+            _buildText('Duration: ${formatDuration(duration).toString()}'),
             _buildText('Type: ${type.toString().split('.').last}'),
             _buildPrice('Price: €${price.toStringAsFixed(2)}'),
           ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:practitioner_app/model/offerings_model.dart';
+import 'package:practitioner_app/view/widgets/myne_app_bar.dart';
 import 'package:practitioner_app/view_model/offerings_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -24,8 +25,8 @@ class _AddEditOfferingPageState extends State<AddEditOfferingPage> {
         Provider.of<OfferingsProvider>(context, listen: false);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(isEditing ? 'Edit Offering' : 'Add Offering'),
+      appBar: MYNEappBar(
+        title: isEditing ? 'Edit Offering' : 'Add Offering',
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

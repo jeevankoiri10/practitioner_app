@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       child: Consumer<ThemeProvider>(
         builder: (context, themeProvider, child) {
           return MaterialApp(
-            title: 'Holistic Practitioner Services: MyNewEarth',
+            title: 'MyNewEarth',
             theme: themeProvider.themeData,
             initialRoute: '/',
             routes: {

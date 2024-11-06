@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:practitioner_app/view/ui/offerings_details_page.dart';
 import 'package:practitioner_app/view/widgets/delete_confirmation.dart';
 import 'package:practitioner_app/view/widgets/offering_list_card.dart';
 import 'package:practitioner_app/view_model/offerings_provider.dart';
 import 'package:provider/provider.dart';
 import 'edit_offering_page.dart';
-import 'settings_page.dart';
-import 'package:practitioner_app/model/offerings_model.dart';
 
 class OfferingsListPage extends StatelessWidget {
   @override
