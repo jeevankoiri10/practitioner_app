@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:practitioner_app/model/database_helper.dart';
 import 'package:practitioner_app/model/offerings_model.dart';
 import 'package:practitioner_app/view/widgets/custom_edit_button.dart';
 import 'package:practitioner_app/view/widgets/myne_app_bar.dart';
 import 'package:practitioner_app/view/widgets/offerings_details_card.dart';
-import 'edit_offering_page.dart';
+import 'add_edit_offering_page.dart';
 
 class OfferingDetailsPage extends StatefulWidget {
   final Offering offering;
@@ -16,6 +17,7 @@ class OfferingDetailsPage extends StatefulWidget {
 
 class _OfferingDetailsPageState extends State<OfferingDetailsPage> {
   late Offering _offering;
+  final DatabaseHelper dbHelper = DatabaseHelper();
 
   @override
   void initState() {
@@ -26,14 +28,19 @@ class _OfferingDetailsPageState extends State<OfferingDetailsPage> {
   // Function to format duration from minutes to hours and minutes
   String formatDuration(Duration duration) {
     if (duration == Duration(minutes: 0, seconds: 0)) {
-      return "0 min".toString();
+      return "0 min";
     }
     final totalMinutes = duration.inMinutes;
-    final hours = totalMinutes ~/ 60; // Integer division
-    final minutes = totalMinutes % 60;
+    final hours = totalMinutes ~/ 60; // Integer division for hours
+    final minutes = totalMinutes % 60; // Remainder for minutes
 
     return '${hours > 0 ? "$hours hr" : ""} ${minutes > 0 ? "$minutes min" : ""}'
         .trim();
+  }
+
+  // Update the offering in the database
+  Future<void> _updateOfferingInDatabase() async {
+    await dbHelper.updateOffering(_offering);
   }
 
   @override
@@ -70,6 +77,7 @@ class _OfferingDetailsPageState extends State<OfferingDetailsPage> {
           if (updatedOffering != null) {
             setState(() {
               _offering = updatedOffering;
+              _updateOfferingInDatabase(); // Update the offering in DB
             });
           }
         },

@@ -3,12 +3,14 @@ import 'package:practitioner_app/view/widgets/delete_confirmation.dart';
 import 'package:practitioner_app/view/widgets/offering_list_card.dart';
 import 'package:practitioner_app/view_model/offerings_provider.dart';
 import 'package:provider/provider.dart';
-import 'edit_offering_page.dart';
+import 'add_edit_offering_page.dart';
 
 class OfferingsListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final offeringsProvider = Provider.of<OfferingsProvider>(context);
+
+    offeringsProvider.fetchOfferings();
 
     return Scaffold(
       appBar: AppBar(
@@ -31,7 +33,7 @@ class OfferingsListPage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: OfferingsList(offeringsProvider: offeringsProvider),
+        child: OfferingsListWidget(offeringsProvider: offeringsProvider),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -48,29 +50,50 @@ class OfferingsListPage extends StatelessWidget {
   }
 }
 
-class OfferingsList extends StatelessWidget {
+class OfferingsListWidget extends StatelessWidget {
   final OfferingsProvider offeringsProvider;
 
-  const OfferingsList({required this.offeringsProvider});
+  const OfferingsListWidget({required this.offeringsProvider});
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: offeringsProvider.offerings.length,
-      itemBuilder: (context, index) {
-        final offering = offeringsProvider.offerings[index];
-        return OfferingCardListView(
-          offering: offering,
-          onDelete: () {
-            _showDeleteConfirmationDialog(
-                context, offering.id, offeringsProvider);
+    return FutureBuilder(
+      future: offeringsProvider.fetchOfferings(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        }
+
+        if (offeringsProvider.offerings.isEmpty) {
+          return const Center(
+            child: Text(
+              'No offerings available.',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+          );
+        }
+
+        return ListView.builder(
+          itemCount: offeringsProvider.offerings.length,
+          itemBuilder: (context, index) {
+            final offering = offeringsProvider.offerings[index];
+            return OfferingCardListView(
+              offering: offering,
+              onDelete: () {
+                _showDeleteConfirmationDialog(
+                    context, offering.id, offeringsProvider);
+              },
+            );
           },
         );
       },
     );
   }
 
-  // Method for delete confirmation dialog
   void _showDeleteConfirmationDialog(BuildContext context, String offeringId,
       OfferingsProvider offeringsProvider) {
     showDialog(
@@ -85,7 +108,6 @@ class OfferingsList extends StatelessWidget {
   }
 }
 
-// Extension method to capitalize the first letter of strings
 extension StringExtension on String {
   String capitalize() => this[0].toUpperCase() + substring(1);
 }

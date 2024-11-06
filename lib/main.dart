@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:practitioner_app/view/ui/edit_offering_page.dart';
+import 'package:practitioner_app/model/database_helper.dart';
+import 'package:practitioner_app/view/ui/add_edit_offering_page.dart';
 import 'package:practitioner_app/view/ui/settings_page.dart';
 import 'package:provider/provider.dart';
 import 'view_model/offerings_provider.dart';
 import 'view/ui/offerings_list_page.dart';
-import 'view/theme/theme_provider.dart';
+import 'view_model/theme/theme_provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await DatabaseHelper().fetchOfferings();
+
+  // Run the application
   runApp(MyApp());
 }
 
