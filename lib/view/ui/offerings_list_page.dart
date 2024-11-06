@@ -13,7 +13,7 @@ class OfferingsListPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Offering',
+          'Offerings: My New Earth',
           style: TextStyle(
               fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
         ),
