@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:practitioner_app/view/widgets/myne_app_bar.dart';
 import 'package:provider/provider.dart';
 import '../theme/theme_provider.dart';
 
@@ -8,10 +9,7 @@ class SettingsPage extends StatelessWidget {
     final themeProvider = Provider.of<ThemeProvider>(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Settings'),
-        backgroundColor: Theme.of(context).primaryColor,
-      ),
+      appBar: MYNEappBar(title: 'Settings'),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
