@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-abstract class BaseScreen extends StatelessWidget {
+abstract class BaseScreenPage extends StatelessWidget {
   static const Color primaryColor = Color(0xFF6200EE);
   static const Color secondaryColor = Color(0xFF03DAC6);
   static const Color backgroundColor = Colors.white;

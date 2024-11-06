@@ -1,26 +1,29 @@
 import 'package:flutter/material.dart';
 
-// Enum for available themes
 enum AppTheme { blue, green, red, purple }
 
 class ThemeProvider with ChangeNotifier {
   // Map of themes based on the AppTheme enum
   static final Map<AppTheme, ThemeData> themes = {
-    AppTheme.blue: ThemeData(
-      colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-      useMaterial3: true,
+    AppTheme.blue: _buildTheme(
+      primaryColor: Colors.blue,
+      appBarColor: Colors.blue,
+      floatingActionButtonColor: Colors.blue,
     ),
-    AppTheme.green: ThemeData(
-      colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
-      useMaterial3: true,
+    AppTheme.green: _buildTheme(
+      primaryColor: Colors.green,
+      appBarColor: Colors.green,
+      floatingActionButtonColor: Colors.green,
     ),
-    AppTheme.red: ThemeData(
-      colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
-      useMaterial3: true,
+    AppTheme.red: _buildTheme(
+      primaryColor: Colors.red,
+      appBarColor: Colors.red,
+      floatingActionButtonColor: Colors.red,
     ),
-    AppTheme.purple: ThemeData(
-      colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
-      useMaterial3: true,
+    AppTheme.purple: _buildTheme(
+      primaryColor: Colors.purple,
+      appBarColor: Colors.purple,
+      floatingActionButtonColor: Colors.purple,
     ),
   };
 
@@ -34,5 +37,49 @@ class ThemeProvider with ChangeNotifier {
   void updateTheme(AppTheme theme) {
     _currentTheme = theme;
     notifyListeners();
+  }
+
+  // Helper method to build the theme with reusable components
+  static ThemeData _buildTheme({
+    required Color primaryColor,
+    required Color appBarColor,
+    required Color floatingActionButtonColor,
+  }) {
+    return ThemeData(
+      primaryColor: primaryColor,
+      appBarTheme: _buildAppBarTheme(appBarColor),
+      floatingActionButtonTheme:
+          _buildFloatingActionButtonTheme(floatingActionButtonColor),
+      scaffoldBackgroundColor: Colors.white,
+      textTheme: _buildTextTheme(),
+      useMaterial3: true,
+    );
+  }
+
+  // Modularized AppBar theme component
+  static AppBarTheme _buildAppBarTheme(Color color) {
+    return AppBarTheme(
+      color: color,
+      titleTextStyle: const TextStyle(color: Colors.white),
+      iconTheme: const IconThemeData(color: Colors.white),
+    );
+  }
+
+  // Modularized FloatingActionButton theme component
+  static FloatingActionButtonThemeData _buildFloatingActionButtonTheme(
+      Color color) {
+    return FloatingActionButtonThemeData(
+      backgroundColor: color,
+      foregroundColor: Colors.white,
+    );
+  }
+
+  // Updated TextTheme component using Material 3 styles
+  static TextTheme _buildTextTheme() {
+    return const TextTheme(
+      bodySmall: TextStyle(color: Colors.black),
+      bodyMedium: TextStyle(color: Colors.black),
+      bodyLarge: TextStyle(color: Colors.black),
+    );
   }
 }
